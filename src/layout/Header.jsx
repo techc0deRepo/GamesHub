@@ -1,4 +1,16 @@
+import Sidebar from "./Sidebar";
+import { useEffect, useState } from "react";
+
 function Header() {
+    const [hidden, setHidden] = useState(true);
+    const [input, setInput] = useState("");
+
+    useEffect(()=>{
+        if(input.length > 2){
+            
+        }
+    },[input])
+
     return (
         <nav>
             <span className="color-effect">Games</span>
@@ -8,11 +20,12 @@ function Header() {
                 </button>
                 <input type="text" className="search-input" />
             </div>
-            <div id="menu" class="menu-btn">
-                <div class="bar1"></div>
-                <div class="bar2"></div>
-                <div class="bar3"></div>
+            <div id="menu" className={hidden?"menu-btn":"menu-btn change"} onClick={() => setHidden(!hidden)}>
+                <div className="bar1"></div>
+                <div className="bar2"></div>
+                <div className="bar3"></div>
             </div>
+            <Sidebar hidden={hidden} />
         </nav>
     )
 }

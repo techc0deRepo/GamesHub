@@ -1,3 +1,5 @@
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 function GameCard(props) {
 
     let title = props.title; 
@@ -8,7 +10,7 @@ function GameCard(props) {
     return (
         <>
             <div className="card">
-                <img src={thumb} className="image" />
+                <LazyLoadImage src={thumb} width={320} height={200} alt="Image Alt" className="image" />
                 <div className="game-desc hidden">
                     <h4>{title}</h4>
                     <p>{desc}</p>
