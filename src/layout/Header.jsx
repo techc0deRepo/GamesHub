@@ -1,15 +1,8 @@
 import Sidebar from "./Sidebar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-function Header() {
+function Header({onChange}) {
     const [hidden, setHidden] = useState(true);
-    const [input, setInput] = useState("");
-
-    useEffect(()=>{
-        if(input.length > 2){
-            
-        }
-    },[input])
 
     return (
         <nav>
@@ -18,7 +11,7 @@ function Header() {
                 <button id="btn" className="search-btn" type="button">
                     <i className="search-icon"></i>
                 </button>
-                <input type="text" className="search-input" />
+                <input type="text" className="search-input" onChange={(e) => onChange(e.target.value.toLowerCase())}/>
             </div>
             <div id="menu" className={hidden?"menu-btn":"menu-btn change"} onClick={() => setHidden(!hidden)}>
                 <div className="bar1"></div>
