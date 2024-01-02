@@ -1,8 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGamepad, faCartShopping, faUserGroup, faTrophy, faGear } from '@fortawesome/free-solid-svg-icons';
 
-
-
 function Sidebar({hidden}) {
     return (
         <div id="menuCnt" className={hidden?"menu-cnt":"menu-cnt show"}>
