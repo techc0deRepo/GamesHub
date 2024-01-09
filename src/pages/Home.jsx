@@ -10,19 +10,16 @@ function Home({games, tags, tagStatusChange}) {
 
     const handleActiveTags = (tag) => {
         const updatedTags = new Set(activeTags);
-    
+
         if (updatedTags.has(tag)) {
           updatedTags.delete(tag); 
         } else {
           updatedTags.add(tag);
         }
-    
+        console.log(updatedTags);
         setActiveTags(updatedTags);
         tags = [...activeTags];
-    };
-
-    const handleTagClick = (status) => {
-        tagStatusChange(status);
+        tagStatusChange(updatedTags);
     };
 
     return (
@@ -34,14 +31,12 @@ function Home({games, tags, tagStatusChange}) {
                         <Tag
                             key={id}
                             name={tag}
-                            isActive={activeTags.has(tag)}
-                            handleClick={() => handleActiveTags(tag)}
-                            tagStatusChange={handleTagClick}
+                            onTagClick={handleActiveTags}
                         />
                     )
                 })}
             </aside>
-            <div className="container">
+            <div className="box-container">
                 <header>
                     <h2>Playing <span className="color-effect">Games</span> Should be free!</h2>
                     <h5>Follow me on social media to stay tuned on more projects</h5>

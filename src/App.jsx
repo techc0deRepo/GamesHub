@@ -14,41 +14,51 @@ function App() {
 
   const [respData, setRespData] = useState([]);
   const [tags, setTags] = useState(new Set());
+  const [clickedTags, setClickedTags] = useState(new Set());
+  const [searchText, setSearchText] = useState("");
   const [filtered, setFiltered] = useState([]);
 
   const handleData = (data) => {
-
     setRespData(data);
     setFiltered(data);
     let tagSet = new Set();
     data.map(item => tagSet.add(item.genre));
     setTags(tagSet);
-    console.log(tags);
-
   }
 
   useEffect(() => {
-
     getGamesData().then((result) => handleData(result));
-  
   }, []);
+  
+  const setText = (text) => setSearchText(text); 
+  const setFilters = (filters) => setClickedTags(filters);
 
-  const handleSearch = (text) => {
-    const filteredGames = respData.filter((item) => item.title.toLowerCase().includes(text));
-    setFiltered(filteredGames)
-    console.log(text);
-    console.log(filteredGames);
-  }
+  useEffect(() => {
 
-  const handleTagStatus = (status) => {
-    console.log(status);
-  }
+    let filteredGames = respData;
+
+    if (searchText.length !== 0){
+      filteredGames = respData.filter((item) => item.title.toLowerCase().includes(searchText));
+    }
+
+    if(clickedTags.size !== 0) {
+      let array = [];
+      filteredGames.forEach(item => {
+          if (clickedTags.has(item.genre)){
+              array.push(item);
+          }
+      });
+      filteredGames = array;
+    }
+
+    setFiltered(filteredGames);
+  }, [clickedTags, searchText]);
 
   return (
     <>
-      <Header onChange={handleSearch} />
+      <Header onChange={setText} />
       <Routes>
-        <Route path="/" element={<Home games={filtered} tags={tags} tagStatusChange={handleTagStatus}/>} />
+        <Route path="/" element={<Home games={filtered} tags={tags} tagStatusChange={setFilters}/>} />
         <Route path="/user" element={<User />} />
         <Route path="/mygames" element={<GameList />} />
         <Route path="/cart" element={<Cart />} />

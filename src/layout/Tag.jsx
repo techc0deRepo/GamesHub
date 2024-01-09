@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 
-const Tag = ({ isActive, handleClick, name, tagStatusChange }) => {
+const Tag = ({ name, onTagClick }) => {
 
-  useEffect(() => {
-    console.log('isActive prop changed:', isActive);
-  }, [isActive]);
+  const [clicked, setClicked] = useState(false);
 
-  const onTagClick = (status) => {
-    tagStatusChange(status)
+  const handleClick = () => {
+    setClicked(!clicked);
+    onTagClick(name);
   }
 
   return (
-    <div className={isActive ? "tag clicked" : "tag"} onClick={handleClick} handleClick={onTagClick(isActive)}>
+    <div className={clicked ? "tag clicked" : "tag"} onClick={handleClick}>
       {name}
     </div>
   );

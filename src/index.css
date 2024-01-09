@@ -278,7 +278,7 @@ aside {
   background: var(--secondary);
 }
 
-.container {
+.box-container {
   display: flex;
   width: auto;
   min-height: 100vh;
