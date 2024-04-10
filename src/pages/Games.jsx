@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { getUsers } from "../api/LocalApi";
-import UserCard from "../components/UserCard";
+import { getGamesData } from "../api/GamesApi";
+import GameCard from "../components/GameCard";
 
-function User() {
+function Games() {
 
-    const [users, setUsers] = useState([]);
+    const [games, setGames] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const handleUsers = (data) => {
+    const handleGames = (data) => {
         console.log(data);
-        setUsers(data);
+        setGames(data);
         setLoading(false);
     }
 
@@ -21,9 +21,8 @@ function User() {
     }
     
       useEffect(() => {
-        getUsers()
-            .then(response => response.json())
-            .then(data => handleUsers(data))
+        getGamesData()
+            .then(data => handleGames(data))
             .catch((error) => handleError(error));
       }, []);
 
@@ -47,18 +46,18 @@ function User() {
         <>
             <div className="box-container">
                 <header>
-                    <h1>User Page</h1>
+                    <h1>Game Page</h1>
                 </header>
                 <div className="card-cnt">
-                    {users.map((user,id) => {
+                    {games.map((game,id) => {
                         return (
-                            <UserCard
+                            <GameCard
                                 key={id}
-                                userId={user.userId}
-                                firstName={user.firstName}
-                                lastName={user.lastName}
-                                username={user.username}
-                                password={user.password}
+                                gameId={game.gameId}
+                                firstName={game.firstName}
+                                lastName={game.lastName}
+                                gamename={game.gamename}
+                                password={game.password}
                             />
                         )
                     })}
@@ -68,4 +67,4 @@ function User() {
     )
 }
 
-export default User;
+export default Games;

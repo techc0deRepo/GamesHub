@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { getGamesData } from './api/GamesApi';
 import Home from './pages/Home';
 import User from './pages/User';
-import GameList from './pages/GameList';
+import GameList from './pages/Games';
 import Cart from './pages/Cart';
 import FriendList from './pages/FriendList';
 import Achievements from './pages/Achievements';
@@ -21,6 +21,7 @@ function App() {
   const handleData = (data) => {
     setRespData(data);
     setFiltered(data);
+    console.log(data);
     let tagSet = new Set();
     data.map(item => tagSet.add(item.genre));
     setTags(tagSet);
@@ -50,6 +51,10 @@ function App() {
       });
       filteredGames = array;
     }
+
+    filteredGames.sort((a,b) => {
+      return a.title - b.title
+    });
 
     setFiltered(filteredGames);
   }, [clickedTags, searchText]);

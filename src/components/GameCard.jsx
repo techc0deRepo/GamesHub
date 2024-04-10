@@ -22,4 +22,5 @@ function GameCard(props) {
     )
 }
 
+
 export default GameCard;

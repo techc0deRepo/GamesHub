@@ -6,7 +6,7 @@ function Header({onChange}) {
 
     return (
         <nav>
-            <span className="color-effect">Games</span>
+            <a href="/"><span className="color-effect">Games</span></a>
             <div className="search-cnt">
                 <button id="btn" className="search-btn" type="button">
                     <i className="search-icon"></i>

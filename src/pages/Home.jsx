@@ -42,9 +42,9 @@ function Home({games, tags, tagStatusChange}) {
                     <h5>Follow me on social media to stay tuned on more projects</h5>
                 </header>
                 <div className="card-cnt" id="cnt">
-                    {games.map((item) => {
+                    {games.map((game) => {
                         return (
-                            <GameCard key={item.id} {...item} />
+                            <GameCard key={game.id} {...game} />
                         )
                     })}
                 </div>
