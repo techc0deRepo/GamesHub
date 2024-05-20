@@ -903,3 +903,48 @@ footer {
 .hidden {
   display: none;
 }
+
+/* UserCard.jsx */
+
+.user-card {
+  width: 350px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--white);
+  background-color: var(--bg);
+}
+
+.user-profile {
+  width: 30%;
+  height: 100%;
+  display: inherit;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-img {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: whitesmoke;
+  font-size: xx-large;
+  color: var(--accent);
+  justify-content: center;
+  align-items: center;
+}
+
+.user-detail {
+  width: 70%;
+  display: inherit;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.user-detail > p {
+  width: 100%;
+}

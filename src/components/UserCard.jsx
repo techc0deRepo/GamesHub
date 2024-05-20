@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const UserCard = ({ userId, firstName, lastName, username, password }) => {
+const UserCard = ({ userId, firstName, lastName, username, email, dateOfBirth }) => {
 
   const [clicked, setClicked] = useState(false);
 
@@ -10,12 +10,18 @@ const UserCard = ({ userId, firstName, lastName, username, password }) => {
   }
 
   return (
-    <div className="usercard" >
-      <p>User Id: {userId}</p>
-      <p>First Name: {firstName}</p>
-      <p>Last Name: {lastName}</p>
-      <p>Username: {username}</p>
-      <p>Password: {password}</p>
+    <div className="user-card" >
+      <div className="user-profile">
+        <span className="user-img">
+          {userId}
+        </span>
+      </div>
+      <div className="user-detail">
+        <p><strong>Name:</strong> {firstName} {lastName}</p>
+        <p><strong>Username:</strong> {username}</p>
+        <p><strong>Email:</strong> {email}</p>
+        <p><strong>Date of Birth:</strong> {dateOfBirth}</p>
+      </div>      
     </div>
   );
 };
