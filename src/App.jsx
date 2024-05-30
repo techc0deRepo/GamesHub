@@ -9,6 +9,7 @@ import FriendList from './pages/FriendList';
 import Achievements from './pages/Achievements';
 import Settings from './pages/Settings';
 import Header from './layout/Header';
+import './style/theme.css'
 
 function App() {
 

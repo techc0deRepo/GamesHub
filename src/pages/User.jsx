@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { getUsers } from "../api/LocalApi";
 import UserCard from "../components/UserCard";
+import Table from "../components/Table";
+import { usersData } from "../data/UserData";
 
 function User() {
 
@@ -10,6 +12,7 @@ function User() {
 
     const handleUsers = (data) => {
         console.log(data);
+
         setUsers(data);
         setLoading(false);
     }
@@ -17,6 +20,7 @@ function User() {
     const handleError = (error) => {
         setError(error);
         setLoading(false);
+        console.log(usersData);
         console.log(error);
     }
     
@@ -37,9 +41,26 @@ function User() {
 
     if (error) return (
         <>
-        <div className="box-container">
-            <h1>Error 404</h1>
-        </div>
+            <div className="min-w-0 flex-auto box-container">
+                        <Table
+                            users ={usersData}
+                        />
+                
+                <div className="card-cnt">
+                    {usersData.map((user,id) => {
+                        return (
+                            <UserCard
+                                key={id}
+                                userId={user.userId}
+                                firstName={user.firstName}
+                                lastName={user.lastName}
+                                username={user.username}
+                                password={user.password}
+                            />
+                        )
+                    })}
+                </div>
+            </div>
         </>
     )
 
@@ -50,7 +71,7 @@ function User() {
                     <h1>User Page</h1>
                 </header>
                 <div className="card-cnt">
-                    {users.map((user,id) => {
+                    {usersData.map((user,id) => {
                         return (
                             <UserCard
                                 key={id}
