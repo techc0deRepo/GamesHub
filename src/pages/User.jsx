@@ -45,21 +45,6 @@ function User() {
                         <Table
                             users ={usersData}
                         />
-                
-                <div className="card-cnt">
-                    {usersData.map((user,id) => {
-                        return (
-                            <UserCard
-                                key={id}
-                                userId={user.userId}
-                                firstName={user.firstName}
-                                lastName={user.lastName}
-                                username={user.username}
-                                password={user.password}
-                            />
-                        )
-                    })}
-                </div>
             </div>
         </>
     )

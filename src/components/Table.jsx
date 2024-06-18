@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { getCheckBoxStatus } from "../api/LocalApi";
-import { Checkbox, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow, Button } from "flowbite-react";
+import { Checkbox, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow, Button, TextInput } from "flowbite-react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGear, faPenToSquare, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 export default function Component({ users }) {
 
@@ -8,6 +10,7 @@ export default function Component({ users }) {
     acc[user.userId] = false;
     return acc;
 }, {});
+
 const [checkboxStates, setCheckboxStates] = useState(initialCheckboxStates);
 
 const handleCheckboxChange = (userId, checked) => {
@@ -31,6 +34,10 @@ const handleSubmit = async () => {
     }
 };
 
+const handleEdit = () => {
+
+}
+
   return (
     <div className="overflow-x-auto">
       <Table hoverable>
@@ -49,27 +56,44 @@ const handleSubmit = async () => {
         </TableHead>
         <TableBody className="divide-y">
           {users.map((user,id) => {
-            return ( 
-                    <TableRow key={id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <TableCell className="p-4">
-                        <input
-                            type="checkbox"
-                            id={id}
-                            checked={checkboxStates[user.userId] || false}
-                            onChange={(e) => handleCheckboxChange(user.userId, e.target.checked)}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                        />
-                      </TableCell>
-                      <TableCell>{user.firstName}</TableCell>
-                      <TableCell>{user.lastName}</TableCell>
-                      <TableCell>{user.username}</TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell>{user.dateOfBirth}</TableCell>
-                      <TableCell>
-                        <Button gradientDuoTone="purpleToBlue">Edit</Button>
-                      </TableCell>
-                    </TableRow>
-                  )
+            return (
+              <TableRow
+                key={id}
+                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+              >
+                <TableCell className="p-4">
+                  <input
+                    type="checkbox"
+                    id={id}
+                    checked={checkboxStates[user.userId] || false}
+                    onChange={(e) =>
+                      handleCheckboxChange(user.userId, e.target.checked)
+                    }
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                </TableCell>
+                <TableCell>
+                  <TextInput id="base" type="text" sizing="md" value={user.firstName} disabled />
+                </TableCell>
+                <TableCell>{user.lastName}</TableCell>
+                <TableCell>{user.username}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.dateOfBirth}</TableCell>
+                <TableCell>
+                  <Button.Group>
+                    <Button color="light">
+                      <FontAwesomeIcon style={{color: "#6c2bd9",}} icon={faPenToSquare} />
+                    </Button>
+                    <Button color="purple">
+                      <FontAwesomeIcon icon={faUsers} />
+                    </Button>
+                    <Button color="dark">
+                      <FontAwesomeIcon icon={faGear} />
+                    </Button>
+                  </Button.Group>
+                </TableCell>
+              </TableRow>
+            );
           })}
         </TableBody>
       </Table>
