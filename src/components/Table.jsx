@@ -52,11 +52,20 @@ const handleDelete = async (userId) => {
                             <td>lastName={user.lastName}</td>
                             <td>username={user.username}</td>
                             <td>password={user.password}</td>
-                            <td><button className="btn btn--primary">Edit</button></td>
-                            <td><button className="btn btn--primary">Delete</button></td>
+                            <td><button className="button" onClick={() => handleEdit(user)}>Edit</button></td>
+                            <td><button className="button" onClick={() => handleDelete(user.id)}>Delete</button></td>
                           </tr>
                       )
                   })}
+                  <tr>
+                    <td><input type="text" /></td>
+                    <td><input type="text" /></td>
+                    <td><input type="text" /></td>
+                    <td><input type="text" /></td>
+                    <td><input type="text" /></td>
+                    <td></td>
+                    <td><button onClick={() => handleAdd({ name: 'New User' })}>Add User</button></td>
+                  </tr>
           </tbody>
         </table>
   );
