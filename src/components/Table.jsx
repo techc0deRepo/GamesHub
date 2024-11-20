@@ -1,14 +1,42 @@
 import { useEffect, useState } from "react";
-import { addUser, updateUser, deleteUser } from "../api/LocalApi";
+import { addUser, updateUser, deleteUser, getUsers } from "../api/LocalApi";
+import { validateUser } from "../utils/Validator";
+import { sanitizeUser } from "../utils/Sanitizer";
 
 export default function Component({ users }) {
 
-  const handleAdd = async (newUser) => {
+  const [userList, setUserList] = useState([]);
+  const [newUser, setNewUser] = useState({
+    userId: "",
+    firstName: "",
+    lastName: "",
+    username: "",
+    password: "",
+  });
+
+  useEffect(() => {
+    getUsers().then((data) => setUserList(data))
+    .catch((error) => console.error("Failed to get users, ", error));
+  }, []);
+
+  const handleAdd = async () => {
     try {
-        const addedUser = await addUser(newUser);
-        setUserList([...userList, addedUser]);
+
+      const validationErrors = validateUser(newUser);
+
+      if (validationErrors.length > 0) {
+        alert("Please fix these errors:\n" + validationErrors.join("\n"));
+        return;
+      }
+
+      const sanitizedUser = sanitizeUser(newUser);
+      const addedUser = await addUser(sanitizedUser);
+      setUserList((prevList) => [...prevList, addedUser]);
+      setNewUser({ userId: "", firstName: "", lastName: "", username: "", password: "" });
+
     } catch (error) {
         console.error('Failed to add user:', error);
+        alert("Failed to add user");
     }
 };
 
@@ -28,6 +56,11 @@ const handleDelete = async (userId) => {
     } catch (error) {
         console.error('Failed to delete user:', error);
     }
+};
+
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setNewUser((prev) => ({ ...prev, [name]: value }));
 };
 
   return (
@@ -52,19 +85,19 @@ const handleDelete = async (userId) => {
                             <td>lastName={user.lastName}</td>
                             <td>username={user.username}</td>
                             <td>password={user.password}</td>
-                            <td><button className="button" onClick={() => handleEdit(user)}>Edit</button></td>
-                            <td><button className="button" onClick={() => handleDelete(user.id)}>Delete</button></td>
+                            <td><button className="button" onClick={handleEdit}>Edit</button></td>
+                            <td><button className="button" onClick={handleDelete}>Delete</button></td>
                           </tr>
                       )
                   })}
                   <tr>
-                    <td><input type="text" /></td>
-                    <td><input type="text" /></td>
-                    <td><input type="text" /></td>
-                    <td><input type="text" /></td>
-                    <td><input type="text" /></td>
+                    <td><input type="text" name="userId" value={newUser.userId} onChange={handleInputChange}/></td>
+                    <td><input type="text" name="firstName" value={newUser.firstName} onChange={handleInputChange}/></td>
+                    <td><input type="text" name="lastName" value={newUser.lastName} onChange={handleInputChange}/></td>
+                    <td><input type="text" name="username" value={newUser.username} onChange={handleInputChange}/></td>
+                    <td><input type="text" name="password" value={newUser.password} onChange={handleInputChange}/></td>
                     <td></td>
-                    <td><button onClick={() => handleAdd({ name: 'New User' })}>Add User</button></td>
+                    <td><button onClick={handleAdd}>Add User</button></td>
                   </tr>
           </tbody>
         </table>
