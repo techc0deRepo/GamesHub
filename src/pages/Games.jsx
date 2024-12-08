@@ -4,6 +4,7 @@ import UserCard from "../components/UserCard";
 
 const USERS_URL = "http://localhost:8080/api/users";
 const GAMES_URL = "http://localhost:8080/api/games";
+const USERGAMES_URL = "http://localhost:8080/api/users/games"
 
 function Games() {
 
@@ -11,10 +12,72 @@ function Games() {
     const [games, setGames] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [selectedUserId, setSelectedUserId] = useState(null);
+    const [userGames, setUsersGames] = useState([]);
+    const [selectedGameIds, setSelectedGamesIds] = useState(new Set());
 
     useEffect(() => {
         fetchUsersAndGames();
     }, []);
+
+    const resetActions = () => {
+        setSelectedGamesIds(new Set());
+        fetchUserGames(selectedUserId);
+    }
+
+    const handleSelectedUserId = (userId) => {
+        console.log(`Selected UserId: ${userId}`);
+        setSelectedUserId(userId);
+        fetchUserGames(userId);
+    }
+
+    const fetchUserGames = async (userId) => {
+        try {
+          const response = await fetch(`${USERGAMES_URL}/${userId}`, { method: "GET" });
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+          }
+          const data = await response.json();
+          console.log(data);
+          setUsersGames(data);
+        } catch (error) {
+          console.error("Error fetching users:", error);
+        }
+      };
+
+    const handleClickedGame = (gameId) => {
+        const updatedGames = new Set(selectedGameIds);
+
+        if (updatedGames.has(gameId)){
+            updatedGames.delete(gameId);
+        } else {
+            updatedGames.add(gameId);
+        }
+        console.log(updatedGames);
+        setSelectedGamesIds(updatedGames);
+    }
+
+    // Add userGames
+    const handleAddUserGames = async () => {
+        try {
+            if (selectedUserId == null) {
+                alert("NO USER SELECTED!");
+            } else {
+                const response = await fetch(`${USERGAMES_URL}/${selectedUserId}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify([...selectedGameIds]),
+                });
+                if (response.ok) {
+                    resetActions();
+                } else {
+                    throw new Error(`Error: ${response.status}`);
+                }
+            }
+        } catch (error) {
+        console.error("Error adding user:", error);
+        }
+    };
 
     const fetchUsersAndGames = async () => {
         setLoading(true);
@@ -83,19 +146,45 @@ function Games() {
                     <div>
                         {users.map((user) => (
                             <UserCard 
+                                selected={selectedUserId}
                                 key={user.userId} 
                                 user={user} 
-                                onUserClick={(userId) => console.log(`User clicked: ${userId}`)}
+                                onUserClick={(userId) => handleSelectedUserId(userId)}
                             />
                         ))}
                     </div>
                 </div>
+                {selectedUserId != null?
+                (
+                    <>
+                        <h3>User Games:</h3>
+                        <div className="card-cnt">
+                            {userGames.map((game) => (
+                                <GameCard
+                                key={game.gameId}
+                                game={game}
+                                onGameClick={(gameId) => console.log(`Game clicked: ${gameId}`)}
+                                />
+                            ))}
+                        </div>
+                    </>
+                ) : (<></>)}
+                <h3>Add new Game to the User {selectedUserId} <button onClick={handleAddUserGames}>ADD GAMES</button></h3>
+                <h6> {[...selectedGameIds].map((id) => (
+                    
+                    games.find((game) => game.gameId === id) ? (
+                        <span className="px-2 border-2 border-indigo-700" key={id}>
+                          {games.find((game) => game.gameId === id).title}
+                        </span>
+                    ) : null
+                    
+                ))}</h6>
                 <div className="card-cnt">
                     {games.map((game) => (
-                            <GameCard
-                            key={game.gameId}
-                            game={game}
-                            onGameClick={(gameId) => console.log(`Game clicked: ${gameId}`)}
+                        <GameCard
+                        key={game.gameId}
+                        game={game}
+                        onGameClick={(gameId) => handleClickedGame(gameId)}
                         />
                     ))}
                 </div>

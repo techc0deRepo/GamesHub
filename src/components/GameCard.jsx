@@ -13,8 +13,11 @@ const GameCard = ({ game, onGameClick }) => {
 
     return (
         <>
-            <div className="card" onClick={handleClick}>
-                <LazyLoadImage src={game.thumbnail} width={320} height={200} alt="Image Alt" className="image" />
+            <div className={!clicked?"card":"card selected"} onClick={handleClick}>
+                <LazyLoadImage 
+                    src={game.thumbnail} width={320} height={200} alt="Image Alt" 
+                    className={!clicked?"image":"image selected"} 
+                />
                 <div className="game-desc hidden">
                     <h4>{game.title}</h4>
                     <p>{game.description}</p>

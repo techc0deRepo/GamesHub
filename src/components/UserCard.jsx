@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const UserCard = ({ user, onUserClick }) => {
+const UserCard = ({ selected, user, onUserClick }) => {
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
@@ -11,7 +11,7 @@ const UserCard = ({ user, onUserClick }) => {
   };
 
   return (
-    <div className="user-card" >
+    <div className={`${selected == user.userId? "user-card selected" : "user-card"}`} >
       <div className="user-profile">
         <span className="user-img">
           {user.userId}
