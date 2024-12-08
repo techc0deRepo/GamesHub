@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-const UserCard = ({ userId, firstName, lastName, username, email, dateOfBirth }) => {
-
+const UserCard = ({ user, onUserClick }) => {
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
     setClicked(!clicked);
-    onUserClick(userId);
-  }
+    if (onUserClick) {
+      onUserClick(user.userId); // Call the click handler passed as a prop
+    }
+  };
 
   return (
     <div className="user-card" >
       <div className="user-profile">
         <span className="user-img">
-          {userId}
+          {user.userId}
         </span>
       </div>
-      <div className="user-detail">
-        <p><strong>Name:</strong> {firstName} {lastName}</p>
-        <p><strong>Username:</strong> {username}</p>
-        <p><strong>Email:</strong> {email}</p>
-        <p><strong>Date of Birth:</strong> {dateOfBirth}</p>
-      </div>      
+      <div className="user-detail" onClick={handleClick}>
+        <p><strong>Name:</strong> {user.firstName} {user.lastName}</p>
+        <p><strong>Username:</strong> {user.username}</p>
+        <p><strong>Email:</strong> {user.email}</p>
+        <p><strong>Date of Birth:</strong> {user.dateOfBirth}</p>
+      </div>
     </div>
   );
 };

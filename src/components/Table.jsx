@@ -7,17 +7,12 @@ export default function Component({ users }) {
 
   const [userList, setUserList] = useState([]);
   const [newUser, setNewUser] = useState({
-    userId: "",
-    firstName: "",
-    lastName: "",
+    user_id: "",
+    first_name: "",
+    last_name: "",
     username: "",
     password: "",
   });
-
-  useEffect(() => {
-    getUsers().then((data) => setUserList(data))
-    .catch((error) => console.error("Failed to get users, ", error));
-  }, []);
 
   const handleAdd = async () => {
     try {
@@ -28,10 +23,12 @@ export default function Component({ users }) {
         alert("Please fix these errors:\n" + validationErrors.join("\n"));
         return;
       }
-
       const sanitizedUser = sanitizeUser(newUser);
+      console.log(newUser);
       const addedUser = await addUser(sanitizedUser);
       setUserList((prevList) => [...prevList, addedUser]);
+      setUserList
+      refreshUsers();
       setNewUser({ userId: "", firstName: "", lastName: "", username: "", password: "" });
 
     } catch (error) {
@@ -97,7 +94,7 @@ const handleInputChange = (e) => {
                     <td><input type="text" name="username" value={newUser.username} onChange={handleInputChange}/></td>
                     <td><input type="text" name="password" value={newUser.password} onChange={handleInputChange}/></td>
                     <td></td>
-                    <td><button onClick={handleAdd}>Add User</button></td>
+                    <td><button className="button" onClick={handleAdd}>Add User</button></td>
                   </tr>
           </tbody>
         </table>

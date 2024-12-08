@@ -42,11 +42,13 @@ function Home({games, tags, tagStatusChange}) {
                     <h5>Follow me on social media to stay tuned on more projects</h5>
                 </header>
                 <div className="card-cnt" id="cnt">
-                    {games.map((game) => {
-                        return (
-                            <GameCard key={game.id} {...game} />
-                        )
-                    })}
+                    {games.map((game) => (
+                        <GameCard
+                        key={game.gameId}
+                        game={game}
+                        onGameClick={(gameId) => console.log(`Game clicked: ${gameId}`)}
+                        />
+                    ))}
                 </div>
             </div>
         </>
