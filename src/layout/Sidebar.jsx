@@ -7,6 +7,7 @@ function Sidebar({hidden}) {
             <div id="menuList" className={hidden?"menu-list":"menu-list show"}>
                 <a href="/user"><FontAwesomeIcon icon={faUser} /><span>User</span></a>
                 <a href="/mygames"><FontAwesomeIcon icon={faGamepad} /><span>My Games</span></a>
+                <a href="/tournaments"><FontAwesomeIcon icon={faTrophy} /><span>Tournaments</span></a>
                 <a href="/cart"><FontAwesomeIcon icon={faCartShopping} /><span>My Cart</span></a>
                 <a href="friends"><FontAwesomeIcon icon={faUserGroup} /><span>Friends</span></a>
                 <a href="achievements"><FontAwesomeIcon icon={faTrophy} /><span>Achievements</span></a>

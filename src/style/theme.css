@@ -19,7 +19,7 @@ body {
 }
 
 :root {
-  --font-family: 'Poppins', ui-sans-serif;
+  --font-family: 'Roboto', serif;
   --font-scale: 1.22;
   --p: 0.88rem;
   --h5: calc(var(--p) * var(--font-scale));
@@ -47,6 +47,78 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: var(--font-family);
+}
+
+.roboto-thin {
+  font-family: "Roboto", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-light {
+  font-family: "Roboto", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: "Roboto", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: "Roboto", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-bold {
+  font-family: "Roboto", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: "Roboto", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: "Roboto", serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light-italic {
+  font-family: "Roboto", serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black-italic {
+  font-family: "Roboto", serif;
+  font-weight: 900;
+  font-style: italic;
 }
 
 h1,
@@ -361,6 +433,62 @@ tbody tr:last-child>td{
   gap: 2rem;
 }
 
+.cnt {
+  display: flex;
+  width: auto;
+  background: var(--secondary);
+  padding: 2rem 1.2rem;
+  flex-direction: row;
+}
+
+.cnt.wrap {
+  flex-wrap: wrap;
+}
+
+.cnt.center{
+  justify-content: center;
+}
+
+.cnt.start {
+  justify-content: flex-start;
+}
+
+.cnt.end {
+  justify-content: flex-end;
+}
+
+.cnt.h-center {
+  align-items: center;
+}
+
+.cnt.h-baseline {
+  align-items: baseline;
+}
+
+.cnt.gap-1 {
+  gap: 1rem;
+}
+
+.cnt.gap-1_5 {
+  gap: 1.5rem;
+}
+
+.cnt.gap-2 {
+  gap: 2rem;
+}
+
+.cnt.ms {
+  margin: var(--margin-sm);
+}
+
+.cnt.md {
+  margin: var(--margin-md);
+}
+
+.cnt.ml {
+  margin: var(--margin-lg);
+}
+
 .color-effect {
   font-size: 36px;
   font-weight: bolder;
@@ -394,6 +522,57 @@ tbody tr:last-child>td{
 
 .card.selected {
   border: 2px solid var(--accent);
+}
+
+.card.trn {
+  max-width: 640px;
+  padding: 0.4rem 0.8rem;
+  height: 300px;
+}
+
+.card.trn h2 {
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.85;
+  font-style: italic;
+  font-size: 18px;
+}
+
+.card.trn image {
+  width: 100%;
+}
+
+.tournament-cnt {
+  display: flex;
+}
+
+.tournament-1 {
+  display: flex;
+}
+
+.fee-cnt {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
+.fee {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.fee span {
+  padding: 0.1rem 0.3rem;
+  border: 2px solid rebeccapurple;
+  background: darkslateblue;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tournament-actions {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
 }
 
 .image {
@@ -453,8 +632,8 @@ tbody tr:last-child>td{
 }
 
 .button {
-  height: 42px;
-  border-radius: 8px;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
   color: var(--white);
   background-color: var(--accent);
 }
@@ -476,7 +655,7 @@ footer {
 /* UserCard.jsx */
 
 .user-card {
-  width: 350px;
+  width: 250px;
   height: 100px;
   display: flex;
   justify-content: center;
@@ -496,6 +675,7 @@ footer {
   display: inherit;
   justify-content: center;
   align-items: center;
+  padding: 0.4rem;
 }
 
 .user-img {
@@ -516,6 +696,7 @@ footer {
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  padding: 0.2rem;
 }
 
 .user-detail > p {

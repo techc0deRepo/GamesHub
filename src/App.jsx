@@ -9,6 +9,7 @@ import Achievements from './pages/Achievements';
 import Settings from './pages/Settings';
 import Header from './layout/Header';
 import './style/theme.css'
+import Tournaments from './pages/Tournaments';
 
 const GAMES_URL = "http://localhost:8080/api/games";
 
@@ -81,6 +82,7 @@ function App() {
         <Route path="/" element={<Home games={filtered} tags={tags} tagStatusChange={setFilters}/>} />
         <Route path="/user" element={<User />} />
         <Route path="/mygames" element={<Games />} />
+        <Route path='/tournaments' element={<Tournaments />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/friends" element={<FriendList />} />
         <Route path="/achievements" element={<Achievements />} />

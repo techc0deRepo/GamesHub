@@ -6,7 +6,7 @@ const UserCard = ({ selected, user, onUserClick }) => {
   const handleClick = () => {
     setClicked(!clicked);
     if (onUserClick) {
-      onUserClick(user.userId); // Call the click handler passed as a prop
+      onUserClick(user.userId);
     }
   };
 
